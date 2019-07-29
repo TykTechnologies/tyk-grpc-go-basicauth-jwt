@@ -2,6 +2,28 @@
 
 gRPC Plugin which accepts BasicAuth from client, validates the credentials, then if successful, generates a JWT signed with shared secret for use by the upstream.
 
+## Quickstart:
+
+```
+go get -u github.com/TykTechnologies/tyk-grpc-go-basicauth-jwt
+go install && tyk-grpc-go-basicauth-jwt
+
+INFO[0000] starting grpc middleware on :9111 
+```
+
+Then update your gateway to point coprocess auth to grpc server
+
+```
+"coprocess_options": {
+  "enable_coprocess": true,
+  "coprocess_grpc_server": "tcp://:9111"
+},
+```
+
+And load your API definition - example in `apidef.json` in this repo
+
+## More detail:
+
 gRPC server listens on:
 
 ```
