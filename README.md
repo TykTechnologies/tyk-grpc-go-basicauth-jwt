@@ -1,11 +1,21 @@
 # gRPC Go Plugin: Basic Auth - IdP - JWT - Microservices
 
-The example code has an internal DB as a Proof-of-Concept, however you
-could quite easily extend this to speak with any 3rd party IdP. E.g.
-OpenLDAP / ActiveDirectory / Some other DB.
+A client sends a request to Tyk Gateway using basic auth:
 
-The plugin then creates a JWT, adding the username to the `sub` claim.
-however you are free to add scopes/groups/permissions or other claims
+```
+curl http://foo:bar@tyk.gateway/someservice
+or
+curl http://tyk.gateway/someservice -H "Authorization: Basic $(echo -n foo:bar | base64)"
+```
+
+Tyk invokes the custom authentication hook and calls this gRPC plugin.
+
+The plugin has an internal DB as a Proof-of-Concept, however you
+could quite easily extend this to speak with any 3rd party IdP. E.g.
+OpenLDAP / ActiveDirectory / Some other DB such as MySql or another service.
+
+Assuming the happy path, the plugin then creates a JWT, adding the username 
+to the `sub` claim. You are free to add scopes/groups/permissions or other claims
 to the JWT. The gateway then signs the JWT with a HMAC Shared Secret.
 
 Feel free to modify code to sign using RSA256 or some other algo in accordance
