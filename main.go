@@ -22,7 +22,7 @@ const (
 
 var (
 	// user:pass
-	userDB = map[string][]byte{}
+	userDB          = map[string][]byte{}
 	policiesToApply = []string{
 		"5d3f3c603f03d3d66fbfad77",
 	}
@@ -107,12 +107,9 @@ func LoginHook(object *coprocess.Object) (*coprocess.Object, error) {
 		IdExtractorDeadline: extractorDeadline,
 		Metadata: map[string]string{
 			"jwt": jot,
+			"token": un,
 		},
 		ApplyPolicies: policiesToApply,
-	}
-
-	object.Metadata = map[string]string{
-		"token": authKey,
 	}
 
 	return object, nil
@@ -140,7 +137,7 @@ func generateJWT(username string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	token.Claims = &jwt.StandardClaims{
-		Subject: username,
+		Subject:  username,
 		IssuedAt: time.Now().Unix(),
 	}
 
