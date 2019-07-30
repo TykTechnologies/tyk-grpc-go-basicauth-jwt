@@ -22,7 +22,7 @@ Feel free to modify code to sign using RSA256 or some other algo in accordance
 with your requirements.
 
 The JWT is then stored inside the 
-<a href="https://tyk.io/docs/concepts/session-meta-data/object" target="_blank">
+<a href="https://tyk.io/docs/concepts/session-meta-data/" target="_blank">
 	session object meta-data</a> for later reuse. 
 
 We apply a 
@@ -42,11 +42,13 @@ using the shared secret.
 2. Read the claims of the JWT to determine permissions, user, grants et al.
 3. Pass the JWT on to other microservices which may need it
 
-We also configured Tyk's ID extractor to use the client's original basic-auth
-credentials as a unique key. This means that Tyk Gateway no longer needs to
-perform the expensive operation of calling the gRPC plugin on every single
-request, only when the TTL for the id_extractor expires. Whilst not benchmarked,
-this should increase performance of the plugin significantly.
+We also configured Tyk's 
+<a href="https://tyk.io/docs/customise-tyk/plugins/rich-plugins/id-extractor/" target="_blank">
+	ID extractor</a> to use the client's original basic-auth credentials as 
+	a unique key. This means that Tyk Gateway no longer needs to perform the 
+	expensive operation of calling the gRPC plugin on every single request, 
+	only when the TTL for the id_extractor expires. Whilst not benchmarked,
+	this should increase performance of the plugin significantly.
 
 As such, the same JWT will be used from the session token's metadata until
 the configured expiry of the id_extractor cache, by which time, the the plugin
