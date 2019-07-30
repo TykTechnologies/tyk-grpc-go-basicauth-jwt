@@ -221,6 +221,12 @@
 			"revisionTime": "2019-04-16T00:04:41Z"
 		},
 		{
+			"checksumSHA1": "BGm8lKZmvJbf/YOJLeL1rw2WVjA=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "3d3f9f413869b949e48070b5bc593aa22cc2b8f2",
+			"revisionTime": "2018-11-10T06:03:37Z"
+		},
+		{
 			"checksumSHA1": "pCY4YtdNKVBYRbNvODjx8hj0hIs=",
 			"path": "golang.org/x/net/http/httpguts",
 			"revision": "60506f45cf65977eb3a9c6e30f995f54a721c271",
@@ -261,6 +267,12 @@
 			"path": "golang.org/x/sys/unix",
 			"revision": "04f50cda93cbb67f2afa353c52f342100e80e625",
 			"revisionTime": "2019-06-26T21:29:17Z"
+		},
+		{
+			"checksumSHA1": "0VuVvFVYdgGWAN/ZrRX8wTVgoDw=",
+			"path": "golang.org/x/sys/windows",
+			"revision": "fc99dfbffb4e5ed5758a37e31dd861afe285406b",
+			"revisionTime": "2019-07-25T17:58:15Z"
 		},
 		{
 			"checksumSHA1": "CbpjEkkOeh0fdM/V8xKDdI0AA88=",
@@ -465,6 +477,12 @@
 			"path": "google.golang.org/grpc/resolver/passthrough",
 			"revision": "47e1ebe575df3e712691b4415f96ff3ab4db6a06",
 			"revisionTime": "2019-04-29T19:42:19Z"
+		},
+		{
+			"checksumSHA1": "qagX2p0Qp5g2g7FpkNAfMQ94jMo=",
+			"path": "google.golang.org/grpc/serviceconfig",
+			"revision": "a4f24690a48567d0cbfad2f1b767d786bc53c393",
+			"revisionTime": "2019-07-29T21:33:10Z"
 		},
 		{
 			"checksumSHA1": "3ZPGj/HdfLTiK7I3xPdnqELnHdk=",
