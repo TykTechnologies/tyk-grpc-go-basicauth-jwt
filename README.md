@@ -71,13 +71,12 @@ You will see in the API Definition that we utilise the ID extractor to cache & r
 "response": [],
 "driver": "grpc",
 "id_extractor": {
-"extract_from": "header",
-"extract_with": "value",
-"extractor_config": {
-  "header_name": "Authorization"
+  "extract_from": "header",
+  "extract_with": "value",
+  "extractor_config": {
+    "header_name": "Authorization"
+  }
 }
-}
-},
 ...
 ```
 
