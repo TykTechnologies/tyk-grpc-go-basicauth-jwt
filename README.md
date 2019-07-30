@@ -1,6 +1,52 @@
-# Custom Auth Middleware Basic Auth to JWT Upstream Auth
+# gRPC Go Plugin: Basic Auth - IdP - JWT - Microservices
 
-gRPC Plugin which accepts BasicAuth from client, validates the credentials, then if successful, generates a JWT signed with shared secret for use by the upstream.
+The example code has an internal DB as a Proof-of-Concept, however you
+could quite easily extend this to speak with any 3rd party IdP. E.g.
+OpenLDAP / ActiveDirectory / Some other DB.
+
+The plugin then creates a JWT, adding the username to the `sub` claim.
+however you are free to add scopes/groups/permissions or other claims
+to the JWT. The gateway then signs the JWT with a HMAC Shared Secret.
+
+Feel free to modify code to sign using RSA256 or some other algo in accordance
+with your requirements.
+
+The JWT is then stored inside the 
+<a href="https://tyk.io/docs/concepts/session-meta-data/object" target="_blank">
+	session object meta-data</a> for later reuse. 
+
+We apply a 
+<a href="https://tyk.io/docs/security/security-policies/policies-guide/" target="_blank">
+	Tyk security policy</a> to the session object. This allows the gateway 
+	to handle access rights, rate-limits & quotas.
+
+Using Tyk's native 
+<a href="https://tyk.io/docs/transform-traffic/request-headers/" target="_blank">
+	Global Header Transform</a> middleware, we extract the JWT from the session
+	metadata, and inject it into the Authorization header of the request.
+	
+The upstream service can now:
+
+1. Validate that the request came from the gateway, by validating the signature
+using the shared secret.
+2. Read the claims of the JWT to determine permissions, user, grants et al.
+3. Pass the JWT on to other microservices which may need it
+
+We also configured Tyk's ID extractor to use the client's original basic-auth
+credentials as a unique key. This means that Tyk Gateway no longer needs to
+perform the expensive operation of calling the gRPC plugin on every single
+request, only when the TTL for the id_extractor expires. Whilst not benchmarked,
+this should increase performance of the plugin significantly.
+
+As such, the same JWT will be used from the session token's metadata until
+the configured expiry of the id_extractor cache, by which time, the the plugin
+will be re-called by the gateway, re-authenticated with the db, and a new JWT 
+generated and attached to the token meta.
+
+---
+
+The client is only using BasicAuth, and is oblivious to the use of JWT between
+the Tyk Gateway & internal microservices.
 
 ## Quickstart:
 
