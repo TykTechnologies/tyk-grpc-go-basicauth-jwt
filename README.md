@@ -71,7 +71,7 @@ INFO[0000] starting grpc middleware on :9111
 
 Then update your gateway to point coprocess auth to grpc server
 
-```
+```json
 "coprocess_options": {
   "enable_coprocess": true,
   "coprocess_grpc_server": "tcp://:9111"
@@ -84,19 +84,19 @@ And load your API definition - example in `apidef.json` in this repo
 
 gRPC server listens on:
 
-```
+```go
 listenAddress       = ":9111"
 ```
 
 JWT HMAC shared secret:
 
-```
+```go
 jwtHmacSharedSecret = "foobarbaz"
 ```
 
 Applied Policy - Make sure to change this for your specificy policy_id
 
-```
+```go
 policiesToApply = []string{
 	"5d3f3c603f03d3d66fbfad77",
 }
@@ -105,7 +105,7 @@ policiesToApply = []string{
 Usernames and passwords hardcoded and bootstrapped in `init()` function.
 You can remove this when you replace logic for the DB.
 
-```
+```go
 func init() {
 	var pass []byte
 	var err error
@@ -124,7 +124,7 @@ func init() {
 
 You will see in the API Definition that we utilise the ID extractor to cache & reduce load on the plugin
 
-```
+```js
 ...
 "response": [],
 "driver": "grpc",
@@ -144,7 +144,7 @@ The plugin stores the JWT inside the session metadata.
 The Gateway in the Global Header transform pulls the JWT from the session metadata and injects it
 into the header for use by the upstream.
 
-```
+```json
 "global_headers": {
   "Authorization": "Bearer $tyk_meta.jwt"
 },
