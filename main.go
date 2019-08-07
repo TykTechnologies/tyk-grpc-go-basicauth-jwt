@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TykTechnologies/tyk-protobuf/bindings/go"
+	coprocess "github.com/TykTechnologies/tyk-protobuf/bindings/go"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
@@ -106,7 +106,7 @@ func LoginHook(object *coprocess.Object) (*coprocess.Object, error) {
 		QuotaRenews:         time.Now().Unix(),
 		IdExtractorDeadline: extractorDeadline,
 		Metadata: map[string]string{
-			"jwt": jot,
+			"jwt":   jot,
 			"token": un,
 		},
 		ApplyPolicies: policiesToApply,
