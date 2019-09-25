@@ -24,7 +24,7 @@ var (
 	// user:pass
 	userDB          = map[string][]byte{}
 	policiesToApply = []string{
-		"5d3f3c603f03d3d66fbfad77",
+		"5d8929d8f56e1a138f628269",
 	}
 )
 
@@ -100,8 +100,9 @@ func LoginHook(object *coprocess.Object) (*coprocess.Object, error) {
 	// Set the ID extractor deadline, useful for caching valid keys:
 	extractorDeadline := time.Now().Add(time.Minute).Unix()
 	object.Session = &coprocess.SessionState{
-		Rate:                0,
-		Per:                 1.0,
+		LastUpdated:         time.Now().String(),
+		Rate:                50,
+		Per:                 10,
 		QuotaMax:            int64(0),
 		QuotaRenews:         time.Now().Unix(),
 		IdExtractorDeadline: extractorDeadline,
